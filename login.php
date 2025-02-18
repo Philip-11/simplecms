@@ -38,9 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     <title>Login</title>
 </head>
 <body>
-    <?php require '../templates/nav.php' ?>
+    <?php require 'templates/nav.php' ?>
     <div>
-        <form action="<?php echo htmlEscape($_SESSION['PHP_SELF']); ?>" method="post">
+        <h2>Login Here: </h2>
+        <form action="<?php echo htmlEscape($_SERVER['PHP_SELF']); ?>" method="post">
             <label for="username">Username: </label><input type="text" name="username" id="username"> <br>
             <label for="password">Password: </label><input type="password" name="password" id="password"> <br>
             <button type="submit">Submit</button>

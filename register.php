@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     <title>Register</title>
 </head>
 <body>
-    <?php require '../templates/nav.php' ?>
+    <?php require 'templates/nav.php' ?>
     <h2>Register here:</h2>
     <form action="<?php echo htmlEscape($_SERVER['PHP_SELF']) ?>" method="post"> 
         <label for="username">Username: </label><input type="text" name="username" id="username" required> <br>
