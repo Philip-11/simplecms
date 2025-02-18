@@ -1,6 +1,6 @@
 <?php 
 require_once '../lib/auth.php';
-
+require_once '../lib/view-post-comment.php';
 
 //Get post id
 if (isset($_GET['post_id']))
@@ -33,6 +33,16 @@ if ($row === false)
 $bodyText = htmlEscape($row['body']);
 $paraText = str_replace("\n", "</p><p>", $bodyText);
 
+if ($_POST)
+{
+    $commentData = array(
+        'name' => $_POST['comment-name'],
+        'website' => $_POST['comment-website'],
+        'text' => $_POST['comment-text'], 
+    );
+
+    $outcome = addCommentToPost($conn, $postId, $commentData);
+}
 ?>
 
 
@@ -56,7 +66,9 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
     <p><?php echo htmlEscape($row['body']) ?></p>
 
     <h3><?php echo countAllCommentsForPosts($postId, $conn) ?> comments</h3>
+    <h3><?php if (isset($outcome)){echo "Successfully Added Comment";} ?></h3>
 
+    <?php //Display all of the comments for a post?>
     <?php foreach (getAllCommentsForPosts($postId, $conn) as $comment): ?>
         <hr />
         <div>
@@ -67,5 +79,7 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
             <?php echo htmlEscape($comment['text'])?>
         </div>
     <?php endforeach ?>
+
+    <?php require '../templates/comment-form.php'?>
 </body>
 </html>
