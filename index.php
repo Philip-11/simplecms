@@ -19,8 +19,8 @@ $stmt->execute();
 </head>
 <body>
     <?php require 'templates/nav.php'?>
+    <h2><?php if (isset($_SESSION['logged_in'])) echo "Hello " . $_SESSION['username'] . "!"; ?></h2>
     <hr />
-     <!-- TODO: Add comments -->
     <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
     <h2> <?php echo htmlEscape($row['title']); ?> </h2>
     <div> <?php echo htmlEscape($row['created_at']); ?> </div>

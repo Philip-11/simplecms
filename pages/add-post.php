@@ -7,14 +7,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     $title = $_POST['title'];
     $description = $_POST['description'];
     $body = $_POST['body'];
+    $user_id = $_SESSION['id'];
 
-    $sql = "INSERT INTO posts (title, description, body, created_at) VALUES (:title, :description, :body, :created_at)";
+    $sql = "INSERT INTO posts (title, description, body, created_at, user_id) VALUES (:title, :description, :body, :created_at, :user_id)";
     $stmt = $conn->prepare($sql);
     $stmt->execute(array(
         'title' => $title, 
         'description' => $description, 
         'body' => $body, 
-        'created_at' => date('Y-m-d H:i:s')
+        'created_at' => date('Y-m-d H:i:s'),
+        'user_id' => $user_id,
     ));
 
     echo "Successfully added post";

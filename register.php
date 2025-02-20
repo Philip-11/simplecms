@@ -6,12 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $email = $_POST['email'];
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+    $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
     $stmt = $conn->prepare($sql);
-    $stmt->execute(array('username' => $username, 'password' => $hashed_password));
+    $stmt->execute(array('username' => $username, 'password' => $hashed_password, 'email' => $email));
 
     echo "Successfully registered";
 }

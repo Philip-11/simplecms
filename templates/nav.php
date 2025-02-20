@@ -6,4 +6,3 @@
         <a href="<?php echo BASE_URL; ?>logout.php"><?php if (isset($_SESSION['logged_in'])) echo "Logout"; ?></a>
 </nav>
 
-<?php //Fix indexphp link, remove login link if logged in ?>
