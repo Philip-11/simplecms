@@ -43,3 +43,32 @@ function getAllCommentsForPosts($postId, $conn)
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function addCommentToPost($conn, $postId, array $commentData)
+{
+    $sql = "INSERT INTO comments (post_id, created_at, name, website, text) VALUES (:post_id, :created_at, :name, :website, :text)";
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt === false)
+    {
+        throw new Exception("Something is wrong in preparing statement");
+    }
+
+    $result = $stmt->execute(array_merge(
+        array(
+        'post_id' => $postId,
+        'created_at' => date('Y-m-d H:i:s')
+    ),
+    $commentData));
+
+    if ($result === false)
+    {
+        throw new Exception("Something is wrong in executing statement");
+    }
+}
+
+/**
+ * add edit post, users can only edit post that they made
+ * admin can edit, delete all of posts
+ * admin can edit, delete all of user   
+ */

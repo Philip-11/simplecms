@@ -1,6 +1,5 @@
 <?php 
 require_once '../lib/auth.php';
-require_once '../lib/view-post-comment.php';
 
 //Get post id
 if (isset($_GET['post_id']))
