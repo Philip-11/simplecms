@@ -126,6 +126,23 @@ function editPost($conn, $title, $description, $body, $postId)
 
     return true;
 }
+
+function deletePost($conn, $postId)
+{
+    $sql = "DELETE FROM posts WHERE id = :id";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false)
+    {
+        throw new Exception("There was a problem in the query");
+    }
+    $result = $stmt->execute(array('id' => $postId));
+    if ($result === false)
+    {
+        throw new Exception("There was a problem in executing the query");
+    }
+
+    return true;
+}
 /**
  * add edit post, users can only edit post that they made
  * admin can edit, delete all of posts

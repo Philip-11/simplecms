@@ -3,6 +3,18 @@ require_once "../lib/auth.php";
 
 $posts = getPostById($conn, $_SESSION['id']);
 
+if ($_POST)
+{
+    $deleteId = $_POST['delete-post'];
+    if ($deleteId)
+    {
+        $keys = array_keys($deleteId);
+        $deletePostId = $keys[0];
+        deletePost($conn, $deletePostId);
+        header("Location: view-users-post.php");
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +55,7 @@ $posts = getPostById($conn, $_SESSION['id']);
                             <a href="edit-post.php?post_id=<?php echo (int) $row['id']?>">Edit Post</a>
                         </td>
                         <td>
-                            <a href="">Delete Post</a>
+                            <input type="submit" value="Delete" name="delete-post[<?php echo $row['id']?>]">
                         </td>
                     </tr>
                 <?php endforeach ?>
