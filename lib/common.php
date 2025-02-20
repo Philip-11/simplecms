@@ -77,6 +77,55 @@ function getAllPosts($conn)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function getPostById($conn, $id)
+{
+    $sql = "SELECT id, title, description, body, created_at FROM posts WHERE user_id = :user_id";
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt === false)
+    {
+        throw new Exception("Something is wrong at the query");
+    }
+
+    $stmt->execute(array('user_id' => $id));
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getSinglePostById($conn, $id)
+{
+    $sql = "SELECT title, description, body, created_at FROM posts WHERE id = :id";
+    $stmt = $conn->prepare($sql);
+    $result = $stmt->execute(array('id' => $id, ));
+
+    if ($result === false)
+    {
+        throw new Exception('Theres a problem in the query');
+    }
+    //Get a row
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($row === false)
+    {
+        throw new Exception('There was a problem in getting a row');
+    }
+
+    return $row;
+}
+
+function editPost($conn, $title, $description, $body, $postId)
+{
+    $sql = "UPDATE posts SET title = :title, description = :description, body = :body WHERE id = :post_id";
+    $stmt = $conn->prepare($sql);
+    $result = $stmt->execute(
+        array(
+            'title' => $title,
+            'description' => $description,
+            'body' => $body,
+            'post_id' => $postId,
+        )
+    );
+
+    return true;
+}
 /**
  * add edit post, users can only edit post that they made
  * admin can edit, delete all of posts

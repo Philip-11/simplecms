@@ -1,16 +1,7 @@
 <?php 
 require_once "../lib/auth.php";
 
-$sql = "SELECT id, title, description, body, created_at FROM posts WHERE user_id = :user_id";
-$stmt = $conn->prepare($sql);
-
-if ($stmt === false)
-{
-    throw new Exception("Something is wrong at the query");
-}
-
-$stmt->execute(array('user_id' => $_SESSION['id']));
-$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$posts = getPostById($conn, $_SESSION['id']);
 
 ?>
 
@@ -49,7 +40,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <a href="view-post.php?post_id=<?php echo (int) $row['id']?>">View</a>
                         </td>
                         <td>
-                            <a href="">Edit Post</a>
+                            <a href="edit-post.php?post_id=<?php echo (int) $row['id']?>">Edit Post</a>
                         </td>
                         <td>
                             <a href="">Delete Post</a>
