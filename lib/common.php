@@ -67,6 +67,16 @@ function addCommentToPost($conn, $postId, array $commentData)
     }
 }
 
+function getAllPosts($conn)
+{
+    
+    $sql = "SELECT * FROM posts ORDER BY created_at DESC";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 /**
  * add edit post, users can only edit post that they made
  * admin can edit, delete all of posts
