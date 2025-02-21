@@ -62,7 +62,8 @@ if ($_POST)
 
     <p><strong><?php echo htmlEscape($row['description']) ?> </strong></p>
 
-    <p><?php echo htmlEscape($row['body']) ?></p>
+    <?php //Already escaped ?>
+    <p><?php echo $paraText ?></p>
 
     <?php require '../templates/list-comments.php'?>
 

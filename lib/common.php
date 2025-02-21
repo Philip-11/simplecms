@@ -143,8 +143,3 @@ function deletePost($conn, $postId)
 
     return true;
 }
-/**
- * add edit post, users can only edit post that they made
- * admin can edit, delete all of posts
- * admin can edit, delete all of user   
- */
