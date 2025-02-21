@@ -20,8 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         $_SESSION['id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
 
-        header("Location: index.php");
-        exit();
+        if ($user['usr_level'] === 1)
+        {
+            $_SESSION['admin'] = true;
+            header("Location: " . BASE_URL . "pages/admin.php");
+            exit();
+        } else {
+            header("Location: index.php");
+            exit();
+        }
+
     } else {
         $error = "Login failed";
         echo $error;

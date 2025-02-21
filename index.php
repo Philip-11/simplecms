@@ -13,7 +13,19 @@ $posts = getAllPosts($conn);
 </head>
 <body>
     <?php require 'templates/nav.php'?>
-    <h2><?php if (isset($_SESSION['logged_in'])) echo "Hello " . $_SESSION['username'] . "!"; ?></h2>
+    <h2>
+        <?php if (isset($_SESSION['logged_in'])) 
+            {
+                if (isset($_SESSION['admin']))
+                {
+                    echo "Hello " . "Admin " . $_SESSION['username'] . "!";
+                }
+                else {
+                    echo "Hello " . $_SESSION['username'] . "!"; 
+                }
+            }
+        ?>
+    </h2>
     <hr />
     <?php foreach ($posts as $row): ?>
     <h2> <?php echo htmlEscape($row['title']); ?> </h2>
