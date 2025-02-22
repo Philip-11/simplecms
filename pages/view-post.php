@@ -34,13 +34,33 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
 
 if ($_POST)
 {
-    $commentData = array(
-        'name' => $_POST['comment-name'],
-        'website' => $_POST['comment-website'],
-        'text' => $_POST['comment-text'], 
-    );
-
-    $outcome = addCommentToPost($conn, $postId, $commentData);
+    switch ($_GET['action'])
+    {
+        case 'add-comment':
+            $commentData = array(
+                'name' => $_POST['comment-name'],
+                'website' => $_POST['comment-website'],
+                'text' => $_POST['comment-text'], 
+            );
+        
+            $outcome = addCommentToPost($conn, $postId, $commentData);
+            break;
+        case 'delete-comment':
+            if (isset($_SESSION['logged_in']))
+            {
+                $deleteId = $_POST['delete-comment'];
+                if ($deleteId)
+                {
+                    $keys = array_keys($deleteId);
+                    $deleteCommentId = $keys[0];
+                    deleteComment($conn, $deleteCommentId, $postId);
+                    //Work on this deleting comment
+                }
+            }
+            
+            break;
+    }
+    
 }
 ?>
 

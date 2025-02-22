@@ -10,9 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
+    $sql = "INSERT INTO users (username, password, email, usr_level) VALUES (:username, :password, :email, :usr_level)";
     $stmt = $conn->prepare($sql);
-    $stmt->execute(array('username' => $username, 'password' => $hashed_password, 'email' => $email));
+    $stmt->execute(array('username' => $username, 'password' => $hashed_password, 'email' => $email, 'usr_level' => 2));
 
     echo "Successfully registered";
 }

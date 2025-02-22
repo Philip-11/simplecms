@@ -6,7 +6,7 @@ require_once '../lib/auth.php';
 
 <h3>Add your comment</h3>
 
-<form action="" method="post">
+<form action="view-post.php?action=add-comment&amp;post_id=<?php echo $postId?>" method="post">
     <p>
         <label for="comment-name">Name:</label>
         <input type="text" id="comment-name" name="comment-name" required>

@@ -143,3 +143,20 @@ function deletePost($conn, $postId)
 
     return true;
 }
+
+function deleteComment($conn, $commentId, $postId)
+{
+    $sql = "DELETE FROM comments WHERE id = :commentId AND post_id = :postId";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false)
+    {
+        throw new Exception("There was a problem in this query");
+    }
+    $result = $stmt->execute(array('commentId' => $commentId, 'postId' => $postId));
+    if ($result === false)
+    {
+        throw new Exception("There was a problem in deleting this comment");
+    }
+
+    return $result !== false;
+}
