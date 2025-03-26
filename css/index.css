@@ -16,7 +16,6 @@ body {
 }
 
 .head-nav {
-    position: sticky;
     top: 0;
     background-color: var(--primarycolor);
     display: flex;
